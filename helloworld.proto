@@ -18,7 +18,7 @@ package helloworld;
 
 service Greeter {
   // Service to return a list of files in the "Data" directory.
-  rpc ListFiles(FilesRequest) return (FilesList);
+  rpc ListFiles(FilesRequest) returns (FilesList);
 
   // For now, we just return HelloReply. But next job will be to return the entire data cube.
   // I'm not sure how to do this with grpc. We might have to use uWebSockets for this,
