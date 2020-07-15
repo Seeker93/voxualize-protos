@@ -17,8 +17,22 @@ syntax = "proto3";
 package helloworld;
 
 service Greeter {
-  // unary call
-  rpc SayHello(FileDetails) returns (HelloReply);
+  // Service to return a list of files in the "Data" directory.
+  rpc ListFiles(FilesRequest) return (FilesList);
+
+  // For now, we just return HelloReply. But next job will be to return the entire data cube.
+  // I'm not sure how to do this with grpc. We might have to use uWebSockets for this,
+  // in which case it would reutrn nothing I guess?
+  rpc ChooseFile(FileDetails) returns (HelloReply); 
+
+}
+
+message FilesRequest {
+  string uselessMessage = 1; // Don't really need a message here, but not sure if you can create a message object without something in it.
+}
+
+message FilesList {
+  string filesList = 1; // A list of the files to be displayed on frontend.
 }
 
 message FileDetails {
