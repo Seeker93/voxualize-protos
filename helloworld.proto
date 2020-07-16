@@ -32,11 +32,11 @@ message FilesRequest {
 }
 
 message FilesList {
-  string filesList = 1; // A list of the files to be displayed on frontend.
+  string fileslist = 1; // A list of the files to be displayed on frontend.
 }
 
 message FileDetails {
-  string fileName = 1;
+  string filename = 1;
   string dimensionx = 2;
   string dimensiony = 3;
   string dimensionz = 4;
