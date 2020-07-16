@@ -28,11 +28,12 @@ service Greeter {
 }
 
 message FilesRequest {
-  string uselessmessage = 1; // Don't really need a message here, but not sure if you can create a message object without something in it.
+  optional string uselessmessage = 1; // Don't really need a message here, but not sure if you can create a message object without something in it.
 }
 
 message FilesList {
-  string fileslist = 1; // A list of the files to be displayed on frontend.
+  repeated string files_list = 1; // A list of the files to be displayed on frontend.
+  repeated string files_size = 2; // Corresponding list of file sizes
 }
 
 message FileDetails {
