@@ -28,7 +28,7 @@ service Greeter {
 }
 
 message FilesRequest {
-  optional string useless_message = 1; // Don't really need a message here, but not sure if you can create a message object without something in it.
+  string useless_message = 1; // Don't really need a message here, but not sure if you can create a message object without something in it.
 }
 
 message FilesList {
