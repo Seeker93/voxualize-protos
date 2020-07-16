@@ -32,8 +32,8 @@ message FilesRequest {
 }
 
 message FilesList {
-  repeated string file_names = 1; // A list of the files to be displayed on frontend.
-  repeated string file_sizes = 2; // Corresponding list of file sizes
+  repeated string file_name = 1; // A list of the files to be displayed on frontend.
+  repeated string file_size = 2; // Corresponding list of file sizes
 }
 
 message FileDetails {
