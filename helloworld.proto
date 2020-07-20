@@ -23,7 +23,7 @@ service Greeter {
   // For now, we just return HelloReply. But next job will be to return the entire data cube.
   // I'm not sure how to do this with grpc. We might have to use uWebSockets for this,
   // in which case it would reutrn nothing I guess?
-  rpc ChooseFile(FileDetails) returns (HelloReply); 
+  rpc ChooseFile(FileDetails) returns (stream DataModel); 
 
 }
 
@@ -47,6 +47,6 @@ message FileDetails {
   string dimensionz = 4;
 }
 
-message HelloReply {
-  string message = 1;
+message DataModel {
+  bytes bytes = 1;
 }
