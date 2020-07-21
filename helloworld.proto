@@ -49,4 +49,5 @@ message FileDetails {
 
 message DataModel {
   bytes bytes = 1;
+  int32 num_bytes = 2;
 }
