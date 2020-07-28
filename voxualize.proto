@@ -14,15 +14,13 @@
 
 syntax = "proto3";
 
-package helloworld;
+package voxualize;
 
 service Greeter {
   // Service to return a list of files in the "Data" directory.
   rpc ListFiles(FilesRequest) returns (FilesList);
 
-  // For now, we just return HelloReply. But next job will be to return the entire data cube.
-  // I'm not sure how to do this with grpc. We might have to use uWebSockets for this,
-  // in which case it would reutrn nothing I guess?
+  // Give file name, return (TO DO:: compressed) LOD data model as a stream of bytes
   rpc ChooseFile(FileDetails) returns (stream DataModel); 
 
 }
@@ -42,9 +40,6 @@ message FilesList {
 
 message FileDetails {
   string file_name = 1;
-  string dimensionx = 2;
-  string dimensiony = 3;
-  string dimensionz = 4;
 }
 
 message DataModel {
