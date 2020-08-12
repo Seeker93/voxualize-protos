@@ -23,6 +23,9 @@ service Greeter {
   // Give file name, return (TO DO:: compressed) LOD data model as a stream of bytes
   rpc ChooseFile(FileDetails) returns (stream DataModel); 
 
+  // Given camera details on the frontend, the server then returns a high quality image of the current view.
+  rpc GetHighQualityRender(CameraInfo) returns (stream DataModel);
+
 }
 
 message FilesRequest {
@@ -45,4 +48,9 @@ message FileDetails {
 message DataModel {
   bytes bytes = 1;
   int32 num_bytes = 2;
+}
+
+message CameraInfo {
+  repeated float position = 1;
+  repeated float focal_point = 2;
 }
