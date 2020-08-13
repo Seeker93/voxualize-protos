@@ -27,7 +27,7 @@ service Greeter {
   rpc GetHighQualityRender(CameraInfo) returns (stream DataModel);
 
   // RPC to go from frontend to backend to get the dimensions and reduction factor of the current LOD model
-  rpc GetDimensionDetails(DimensionDetailsRequest) returns (DimensionDetails)
+  rpc GetDimensionDetails(DimensionDetailsRequest) returns (DimensionDetails);
 
 }
 
