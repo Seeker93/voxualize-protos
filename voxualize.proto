@@ -26,6 +26,9 @@ service Greeter {
   // Given camera details on the frontend, the server then returns a high quality image of the current view.
   rpc GetHighQualityRender(CameraInfo) returns (stream DataModel);
 
+  // RPC to go from frontend to backend to get the dimensions and reduction factor of the current LOD model
+  rpc GetDimensionDetails(DimensionDetailsRequest) returns (DimensionDetails)
+
 }
 
 message FilesRequest {
@@ -53,4 +56,14 @@ message DataModel {
 message CameraInfo {
   repeated float position = 1;
   repeated float focal_point = 2;
+}
+
+message DimensionDetailsRequest {
+  // empty request
+}
+
+message DimensionDetails {
+  repeated int32 dimensions_lod = 1;
+  repeated float reduction_factors = 2;
+  repeated int32 dimensions_original = 3;
 }
