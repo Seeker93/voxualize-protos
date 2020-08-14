@@ -20,14 +20,14 @@ service Greeter {
   // Service to return a list of files in the "Data" directory.
   rpc ListFiles(FilesRequest) returns (FilesList);
 
-  // Give file name, return (TO DO:: compressed) LOD data model as a stream of bytes
-  rpc ChooseFile(FileDetails) returns (stream DataModel); 
+  // Give file name, return Details of data cube which will be received if GetModelData is called.
+  rpc ChooseFile(FileDetails) returns (DimensionDetails);
 
   // Given camera details on the frontend, the server then returns a high quality image of the current view.
   rpc GetHighQualityRender(CameraInfo) returns (stream DataModel);
 
-  // RPC to go from frontend to backend to get the dimensions and reduction factor of the current LOD model
-  rpc GetDimensionDetails(DimensionDetailsRequest) returns (DimensionDetails);
+  // Get the data of the model created on the backend.
+  rpc GetModelData(Dummy) returns (stream DataModel);
 
 }
 
@@ -58,7 +58,7 @@ message CameraInfo {
   repeated float focal_point = 2;
 }
 
-message DimensionDetailsRequest {
+message Dummy {
   // empty request
 }
 
