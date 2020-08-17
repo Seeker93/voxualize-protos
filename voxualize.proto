@@ -56,6 +56,8 @@ message DataModel {
 message CameraInfo {
   repeated float position = 1;
   repeated float focal_point = 2;
+  int32 window_width = 3;
+  int32 window_height = 4;
 }
 
 message Dummy {
@@ -67,3 +69,4 @@ message DimensionDetails {
   repeated float reduction_factors = 2;
   repeated int32 dimensions_original = 3;
 }
+
