@@ -58,6 +58,8 @@ message CameraInfo {
   repeated float focal_point = 2;
   int32 window_width = 3;
   int32 window_height = 4;
+  repeated float view_up = 5;
+  float distance = 6;
 }
 
 message Dummy {
