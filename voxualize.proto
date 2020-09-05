@@ -60,6 +60,7 @@ message CameraInfo {
   int32 window_height = 4;
   repeated float view_up = 5;
   float distance = 6;
+  repeated float direction_of_projection = 7;
 }
 
 message Dummy {
