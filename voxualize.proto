@@ -61,6 +61,8 @@ message CameraInfo {
   repeated float view_up = 5;
   float distance = 6;
   repeated float direction_of_projection = 7;
+  repeated float rgba = 8;
+  float alpha = 9;
 }
 
 message Dummy {
