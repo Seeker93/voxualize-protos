@@ -958,7 +958,7 @@ proto.voxualize.DataModel.prototype.setNumBytes = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.voxualize.CameraInfo.repeatedFields_ = [1,2,5,7,8];
+proto.voxualize.CameraInfo.repeatedFields_ = [1,2,5,7,8,10];
 
 
 
@@ -999,7 +999,8 @@ proto.voxualize.CameraInfo.toObject = function(includeInstance, msg) {
     distance: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
     directionOfProjectionList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 7)) == null ? undefined : f,
     rgbaList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 8)) == null ? undefined : f,
-    alpha: jspb.Message.getFloatingPointFieldWithDefault(msg, 9, 0.0)
+    alpha: jspb.Message.getFloatingPointFieldWithDefault(msg, 9, 0.0),
+    croppingPlanesList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 10)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -1071,6 +1072,10 @@ proto.voxualize.CameraInfo.deserializeBinaryFromReader = function(msg, reader) {
     case 9:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setAlpha(value);
+      break;
+    case 10:
+      var value = /** @type {!Array<number>} */ (reader.readPackedFloat());
+      msg.setCroppingPlanesList(value);
       break;
     default:
       reader.skipField();
@@ -1161,6 +1166,13 @@ proto.voxualize.CameraInfo.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeFloat(
       9,
+      f
+    );
+  }
+  f = message.getCroppingPlanesList();
+  if (f.length > 0) {
+    writer.writePackedFloat(
+      10,
       f
     );
   }
@@ -1421,6 +1433,43 @@ proto.voxualize.CameraInfo.prototype.getAlpha = function() {
  */
 proto.voxualize.CameraInfo.prototype.setAlpha = function(value) {
   return jspb.Message.setProto3FloatField(this, 9, value);
+};
+
+
+/**
+ * repeated float cropping_planes = 10;
+ * @return {!Array<number>}
+ */
+proto.voxualize.CameraInfo.prototype.getCroppingPlanesList = function() {
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedFloatingPointField(this, 10));
+};
+
+
+/**
+ * @param {!Array<number>} value
+ * @return {!proto.voxualize.CameraInfo} returns this
+ */
+proto.voxualize.CameraInfo.prototype.setCroppingPlanesList = function(value) {
+  return jspb.Message.setField(this, 10, value || []);
+};
+
+
+/**
+ * @param {number} value
+ * @param {number=} opt_index
+ * @return {!proto.voxualize.CameraInfo} returns this
+ */
+proto.voxualize.CameraInfo.prototype.addCroppingPlanes = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 10, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.voxualize.CameraInfo} returns this
+ */
+proto.voxualize.CameraInfo.prototype.clearCroppingPlanesList = function() {
+  return this.setCroppingPlanesList([]);
 };
 
 
