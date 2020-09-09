@@ -24,13 +24,13 @@ service Greeter {
   rpc ChooseFile(FileDetails) returns (DimensionDetails);
 
   // Given camera details on the frontend, the server then returns a high quality image of the current view.
-  rpc GetHighQualityRender(CameraInfo) returns (stream DataModel);
+  rpc GetHighQualityRender(Dummy) returns (stream DataModel);
 
   // Get the data of the model created on the backend.
   rpc GetModelData(Dummy) returns (stream DataModel);
 
   // Get the HQ render size in bytes, and any other information can be added here.
-  rpc GetHQRenderSize(Dummy) returns (HQRenderInfo);
+  rpc GetHQRenderSize(CameraInfo) returns (HQRenderInfo);
 }
 
 message FilesRequest {
