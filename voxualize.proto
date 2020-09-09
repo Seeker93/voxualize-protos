@@ -29,6 +29,8 @@ service Greeter {
   // Get the data of the model created on the backend.
   rpc GetModelData(Dummy) returns (stream DataModel);
 
+  // Get the HQ render size in bytes, and any other information can be added here.
+  rpc GetHQRenderSize(Dummy) returns (HQRenderInfo);
 }
 
 message FilesRequest {
@@ -61,6 +63,8 @@ message CameraInfo {
   repeated float view_up = 5;
   float distance = 6;
   repeated float direction_of_projection = 7;
+  repeated float rgba = 8;
+  float alpha = 9;
 }
 
 message Dummy {
@@ -73,3 +77,6 @@ message DimensionDetails {
   repeated int32 dimensions_original = 3;
 }
 
+message HQRenderInfo {
+  int32 size_in_bytes = 1;
+}
