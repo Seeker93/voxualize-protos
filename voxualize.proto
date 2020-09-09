@@ -76,6 +76,7 @@ message DimensionDetails {
   repeated int32 dimensions_lod = 1;
   repeated float reduction_factors = 2;
   repeated int32 dimensions_original = 3;
+  int32 lod_num_bytes = 4;
 }
 
 message HQRenderInfo {
