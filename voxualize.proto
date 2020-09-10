@@ -31,6 +31,9 @@ service Greeter {
 
   // Get the HQ render size in bytes, and any other information can be added here.
   rpc GetHQRenderSize(CameraInfo) returns (HQRenderInfo);
+
+  // Returns ROI LOD model at higher res than current, if possible. 
+  rpc GetROILOD(CameraInfo) returns (stream DataModel);
 }
 
 message FilesRequest {
