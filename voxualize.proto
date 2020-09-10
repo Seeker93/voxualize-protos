@@ -27,7 +27,7 @@ service Greeter {
   rpc GetHighQualityRender(Dummy) returns (stream DataModel);
 
   // Get the data of the model created on the backend.
-  rpc GetModelData(Dummy) returns (stream DataModel);
+  rpc GetModelData(LODRequest) returns (stream DataModel);
 
   // Get the HQ render size in bytes, and any other information can be added here.
   rpc GetHQRenderSize(CameraInfo) returns (HQRenderInfo);
@@ -69,6 +69,7 @@ message CameraInfo {
   repeated float rgba = 8;
   float alpha = 9;
   repeated float cropping_planes = 10;
+  uint32 size_lod_bytes = 11;
 }
 
 message Dummy {
@@ -84,4 +85,10 @@ message DimensionDetails {
 
 message HQRenderInfo {
   int32 size_in_bytes = 1;
+}
+
+// For when requesting lod models. In future - could add additional
+// constraints on LOD model, such as specific dimension reduction factors, dimension stretching, etc.
+message LODRequest {
+  uint32 size_lod_bytes = 1;
 }
