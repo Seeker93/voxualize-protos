@@ -95,3 +95,8 @@ message DimensionDetails {
 message HQRenderInfo {
   int32 size_in_bytes = 1;
 }
+
+message ROILODInfo {
+  uint32 true_size_lod_bytes = 1;
+  repeated int32 dimensions_lod = 2;
+}
