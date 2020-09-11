@@ -17,23 +17,30 @@ syntax = "proto3";
 package voxualize;
 
 service Greeter {
+
+  // ============ File selection, and initial full LOD model stream ==================
   // Service to return a list of files in the "Data" directory.
   rpc ListFiles(FilesRequest) returns (FilesList);
 
   // Give file name, return Details of data cube which will be received if GetModelData is called.
   rpc ChooseFile(FileDetails) returns (DimensionDetails);
 
-  // Given camera details on the frontend, the server then returns a high quality image of the current view.
-  rpc GetHighQualityRender(Dummy) returns (stream DataModel);
-
   // Get the data of the model created on the backend.
-  rpc GetModelData(LODRequest) returns (stream DataModel);
+  rpc GetModelData(Dummy) returns (stream DataModel);
 
+  // ####################### HQ RENDER RPCs #########################
   // Get the HQ render size in bytes, and any other information can be added here.
   rpc GetHQRenderSize(CameraInfo) returns (HQRenderInfo);
 
+  // Given camera details on the frontend, the server then returns a high quality image of the current view.
+  rpc GetHighQualityRender(Dummy) returns (stream DataModel);
+
+  // ------------------THE ROI LOD RPCs------------------------------
+  // Camera info - specifically new cropping info - is sent. Return info about new LOD ROI model.
+  rpc GetNewROILODSize(CameraInfo) returns (ROILODInfo);
+
   // Returns ROI LOD model at higher res than current, if possible. 
-  rpc GetROILOD(CameraInfo) returns (stream DataModel);
+  rpc GetROILOD(Dummy) returns (stream DataModel);
 }
 
 message FilesRequest {
@@ -45,12 +52,12 @@ message FilesList {
     string file_name = 1;
     float file_size = 2;
   }
-
   repeated File files = 1;
 }
 
 message FileDetails {
   string file_name = 1;
+  uint32 target_size_lod_bytes = 11;
 }
 
 message DataModel {
@@ -68,8 +75,8 @@ message CameraInfo {
   repeated float direction_of_projection = 7;
   repeated float rgba = 8;
   float alpha = 9;
-  repeated float cropping_planes = 10;
-  uint32 size_lod_bytes = 11;
+  repeated float cropping_planes = 10; // Depending on the RPC, this will or will not get used.
+  uint32 target_size_lod_bytes = 11; 
 }
 
 message Dummy {
@@ -90,5 +97,10 @@ message HQRenderInfo {
 // For when requesting lod models. In future - could add additional
 // constraints on LOD model, such as specific dimension reduction factors, dimension stretching, etc.
 message LODRequest {
-  uint32 size_lod_bytes = 1;
+  uint32 target_size_lod_bytes = 1;
+}
+
+message ROILODInfo {
+  uint32 true_size_lod_bytes = 1;
+  repeated int32 dimensions_lod = 2;
 }
