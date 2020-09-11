@@ -25,22 +25,20 @@ service Greeter {
   // Give file name, return Details of data cube which will be received if GetModelData is called.
   rpc ChooseFile(FileDetails) returns (DimensionDetails);
 
-  // Get the data of the model created on the backend.
-  rpc GetModelData(Dummy) returns (stream DataModel);
-
   // ####################### HQ RENDER RPCs #########################
   // Get the HQ render size in bytes, and any other information can be added here.
   rpc GetHQRenderSize(CameraInfo) returns (HQRenderInfo);
-
-  // Given camera details on the frontend, the server then returns a high quality image of the current view.
-  rpc GetHighQualityRender(Dummy) returns (stream DataModel);
 
   // ------------------THE ROI LOD RPCs------------------------------
   // Camera info - specifically new cropping info - is sent. Return info about new LOD ROI model.
   rpc GetNewROILODSize(CameraInfo) returns (ROILODInfo);
 
-  // Returns ROI LOD model at higher res than current, if possible. 
-  rpc GetROILOD(Dummy) returns (stream DataModel);
+  // ------------------------------------------------------------------------------------
+
+  // Get the data of various data objects. Must be specified in GetDataRequest
+  rpc GetModelData(GetDataRequest) returns (stream DataModel);
+
+
 }
 
 message FilesRequest {
@@ -79,8 +77,12 @@ message CameraInfo {
   uint32 target_size_lod_bytes = 11; 
 }
 
-message Dummy {
-  // empty request
+message GetDataRequest {
+  enum DataObject {
+    LODModel = 0;
+    HQRender = 1;
+  }
+  DataObject data_object = 1;
 }
 
 message DimensionDetails {
@@ -92,15 +94,4 @@ message DimensionDetails {
 
 message HQRenderInfo {
   int32 size_in_bytes = 1;
-}
-
-// For when requesting lod models. In future - could add additional
-// constraints on LOD model, such as specific dimension reduction factors, dimension stretching, etc.
-message LODRequest {
-  uint32 target_size_lod_bytes = 1;
-}
-
-message ROILODInfo {
-  uint32 true_size_lod_bytes = 1;
-  repeated int32 dimensions_lod = 2;
 }
