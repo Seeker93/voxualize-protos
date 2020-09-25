@@ -22,22 +22,19 @@ service Greeter {
   // Service to return a list of files in the "Data" directory.
   rpc ListFiles(FilesRequest) returns (FilesList);
 
-  // Give file name, return Details of data cube which will be received if GetModelData is called.
-  rpc ChooseFile(FileDetails) returns (DimensionDetails);
+  // Give file name, return the LOD model as stream.
+  rpc ChooseFile(FileDetails) returns (ROILOD);
 
   // ####################### HQ RENDER RPCs #########################
-  // Get the HQ render size in bytes, and any other information can be added here.
-  rpc GetHQRenderSize(CameraInfo) returns (HQRenderInfo);
+  // Get the HQ render, given the camera position, cropping planes, etc.
+  rpc GetHQRender(CameraInfo) returns (HQRender);
 
   // ------------------THE ROI LOD RPCs------------------------------
-  // Camera info - specifically new cropping info - is sent. Return info about new LOD ROI model.
-  rpc GetNewROILODSize(CameraInfo) returns (ROILODInfo);
-
-  // ------------------------------------------------------------------------------------
+  // Get the New ROI LOD, given the target mem size, cropping planes, etc.
+  rpc GetNewROILOD(CameraInfo) returns (ROILOD);
 
   // Get the data of various data objects. Must be specified in GetDataRequest
-  rpc GetModelData(GetDataRequest) returns (stream DataModel);
-
+  //rpc GetModelData(GetDataRequest) returns (stream DataModel);
 
 }
 
@@ -58,10 +55,10 @@ message FileDetails {
   uint32 target_size_lod_bytes = 11;
 }
 
-message DataModel {
-  bytes bytes = 1;
-  int32 num_bytes = 2;
-}
+// message DataModel {
+//   bytes bytes = 1;
+//   int32 num_bytes = 2;
+// }
 
 message CameraInfo {
   repeated float position = 1;
@@ -77,26 +74,35 @@ message CameraInfo {
   uint32 target_size_lod_bytes = 11; 
 }
 
-message GetDataRequest {
-  enum DataObject {
-    LODModel = 0;
-    HQRender = 1;
-  }
-  DataObject data_object = 1;
+// message GetDataRequest {
+//   enum DataObject {
+//     LODModel = 0;
+//     HQRender = 1;
+//   }
+//   DataObject data_object = 1;
+// }
+
+// message DimensionDetails {
+//   repeated int32 dimensions_lod = 1;
+//   repeated float reduction_factors = 2;
+//   repeated int32 dimensions_original = 3;
+//   int32 lod_num_bytes = 4;
+// }
+
+message HQRender {
+  bytes bytes = 1;
+  int32 num_bytes = 2; //number of bytes in message
+
+  int32 size_in_bytes = 3;
+  int32 width = 4;  //Add width and height here, but frontend should remember/have access to them. 
+  int32 height = 5;
 }
 
-message DimensionDetails {
-  repeated int32 dimensions_lod = 1;
-  repeated float reduction_factors = 2;
-  repeated int32 dimensions_original = 3;
-  int32 lod_num_bytes = 4;
-}
+message ROILOD {
+  bytes bytes = 1;
+  int32 num_bytes = 2; //number of bytes in message
 
-message HQRenderInfo {
-  int32 size_in_bytes = 1;
-}
-
-message ROILODInfo {
-  uint32 true_size_lod_bytes = 1;
-  repeated int32 dimensions_lod = 2;
+  // these next 2 only sent in first message of stream
+  uint32 total_lod_bytes = 3; //total num_bytes of LOD model
+  repeated int32 dimensions_lod = 4;
 }
