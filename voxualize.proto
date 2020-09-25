@@ -23,15 +23,15 @@ service Greeter {
   rpc ListFiles(FilesRequest) returns (FilesList);
 
   // Give file name, return the LOD model as stream.
-  rpc ChooseFile(FileDetails) returns (ROILOD);
+  rpc ChooseFile(FileDetails) returns (stream ROILOD);
 
   // ####################### HQ RENDER RPCs #########################
   // Get the HQ render, given the camera position, cropping planes, etc.
-  rpc GetHQRender(CameraInfo) returns (HQRender);
+  rpc GetHQRender(CameraInfo) returns (stream HQRender);
 
   // ------------------THE ROI LOD RPCs------------------------------
   // Get the New ROI LOD, given the target mem size, cropping planes, etc.
-  rpc GetNewROILOD(CameraInfo) returns (ROILOD);
+  rpc GetNewROILOD(CameraInfo) returns (stream ROILOD);
 
   // Get the data of various data objects. Must be specified in GetDataRequest
   //rpc GetModelData(GetDataRequest) returns (stream DataModel);
