@@ -52,7 +52,12 @@ message FilesList {
 
 message FileDetails {
   string file_name = 1;
-  uint32 target_size_lod_bytes = 11;
+  uint32 target_size_lod_bytes = 2;
+  enum SamplingMethod {
+    Max = 0;
+    Mean = 1;
+  }
+  SamplingMethod s_method = 3;
 }
 
 // message DataModel {
@@ -72,6 +77,11 @@ message CameraInfo {
   float alpha = 9;
   repeated float cropping_planes = 10; // Depending on the RPC, this will or will not get used.
   uint32 target_size_lod_bytes = 11; 
+  enum SamplingMethod {
+    Max = 0;
+    Mean = 1;
+  }
+  SamplingMethod s_method = 12;
 }
 
 // message GetDataRequest {
