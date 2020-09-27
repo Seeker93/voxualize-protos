@@ -36,11 +36,11 @@ service Greeter {
   // Get the data of various data objects. Must be specified in GetDataRequest
   //rpc GetModelData(GetDataRequest) returns (stream DataModel);
 
-  rpc Reset(Empty) returns (Empty);
+  rpc Reset(CameraInfo) returns (Empty);
 }
 
 message Empty {
-  
+
 }
 
 message FilesRequest {
