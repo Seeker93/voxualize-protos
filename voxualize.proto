@@ -120,4 +120,6 @@ message ROILOD {
   // these next 2 only sent in first message of stream
   uint32 total_lod_bytes = 3; //total num_bytes of LOD model
   repeated int32 dimensions_lod = 4;
+  float min_pixel = 5;
+  float max_pixel = 6;
 }
