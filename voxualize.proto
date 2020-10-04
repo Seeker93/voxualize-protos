@@ -88,6 +88,7 @@ message CameraInfo {
   }
   SamplingMethod s_method = 12;
   repeated double opacity_array = 13;
+  string uuid = 14;
 }
 
 // message GetDataRequest {
@@ -112,6 +113,8 @@ message HQRender {
   int32 size_in_bytes = 3;
   int32 width = 4;  //Add width and height here, but frontend should remember/have access to them. 
   int32 height = 5;
+  string uuid = 6;
+
 }
 
 message ROILOD {
