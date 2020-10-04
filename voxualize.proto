@@ -87,6 +87,7 @@ message CameraInfo {
     Mean = 1;
   }
   SamplingMethod s_method = 12;
+  repeated double opacity_array = 13;
 }
 
 // message GetDataRequest {
